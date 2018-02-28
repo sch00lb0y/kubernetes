@@ -51,6 +51,7 @@ import (
 	"k8s.io/kubernetes/plugin/pkg/admission/serviceaccount"
 	"k8s.io/kubernetes/plugin/pkg/admission/storage/storageclass/setdefault"
 	"k8s.io/kubernetes/plugin/pkg/admission/storage/storageobjectinuseprotection"
+	"k8s.io/kubernetes/plugin/pkg/admission/customresourcequota"
 
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apiserver/pkg/admission"
@@ -126,6 +127,7 @@ func RegisterAllAdmissionPlugins(plugins *admission.Plugins) {
 	setdefault.Register(plugins)
 	resize.Register(plugins)
 	storageobjectinuseprotection.Register(plugins)
+	customresourcequota.Register(plugins)
 }
 
 // DefaultOffAdmissionPlugins get admission plugins off by default for kube-apiserver.
