@@ -16,30 +16,31 @@ limitations under the License.
 
 package customresourcequota
 
-import(
-	"k8s.io/apiserver/pkg/admission"
-	"io"
+import (
 	"errors"
+	"io"
+
+	"k8s.io/apiserver/pkg/admission"
 )
 
 const PluginName = "CRResourceQuota"
 
 func Register(plugins *admission.Plugins) {
-	plugins.Register(PluginName, 
-		func(config io.Reader)(admission.Interface, error) {
+	plugins.Register(PluginName,
+		func(config io.Reader) (admission.Interface, error) {
 			return NewCustomResourceQuotaAdmission(), nil
 		})
 }
 
 type CustomResourceQuotaAdmission struct {
-	*admission.Handler
 }
 
 func NewCustomResourceQuotaAdmission() *CustomResourceQuotaAdmission {
-	return &CustomResourceQuotaAdmission{
-		Handler: admission.NewHandler(admission.Create),
-	}
+	return &CustomResourceQuotaAdmission{}
 }
-func(a *CustomResourceQuotaAdmission) Validate(attr admission.Attributes)error{
+func (a *CustomResourceQuotaAdmission) Handles(operation admission.Operation) bool {
+	return true
+}
+func (a *CustomResourceQuotaAdmission) Validate(attr admission.Attributes) error {
 	return errors.New("balaji error")
 }
