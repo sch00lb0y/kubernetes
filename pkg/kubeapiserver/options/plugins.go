@@ -95,7 +95,7 @@ var AllOrderedPlugins = []string{
 	validatingwebhook.PluginName,            // ValidatingAdmissionWebhook
 	resourcequota.PluginName,                // ResourceQuota
 	deny.PluginName,                         // AlwaysDeny
-	customresourcequota.PluginName			 // CustomResourceQuota
+	customresourcequota.PluginName,			 // CustomResourceQuota
 }
 
 // RegisterAllAdmissionPlugins registers all admission plugins and
