@@ -27,6 +27,7 @@ import (
 	"k8s.io/kubernetes/plugin/pkg/admission/admit"
 	"k8s.io/kubernetes/plugin/pkg/admission/alwayspullimages"
 	"k8s.io/kubernetes/plugin/pkg/admission/antiaffinity"
+	"k8s.io/kubernetes/plugin/pkg/admission/customresourcequota"
 	"k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds"
 	"k8s.io/kubernetes/plugin/pkg/admission/deny"
 	"k8s.io/kubernetes/plugin/pkg/admission/eventratelimit"
@@ -51,7 +52,6 @@ import (
 	"k8s.io/kubernetes/plugin/pkg/admission/serviceaccount"
 	"k8s.io/kubernetes/plugin/pkg/admission/storage/storageclass/setdefault"
 	"k8s.io/kubernetes/plugin/pkg/admission/storage/storageobjectinuseprotection"
-	"k8s.io/kubernetes/plugin/pkg/admission/customresourcequota"
 
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apiserver/pkg/admission"
@@ -95,7 +95,7 @@ var AllOrderedPlugins = []string{
 	validatingwebhook.PluginName,            // ValidatingAdmissionWebhook
 	resourcequota.PluginName,                // ResourceQuota
 	deny.PluginName,                         // AlwaysDeny
-	customresourcequota.PluginName,			 // CustomResourceQuota
+	customresourcequota.PluginName,          // CustomResourceQuota
 }
 
 // RegisterAllAdmissionPlugins registers all admission plugins and
@@ -143,6 +143,7 @@ func DefaultOffAdmissionPlugins() sets.String {
 		mutatingwebhook.PluginName,          //MutatingAdmissionWebhook
 		validatingwebhook.PluginName,        //ValidatingAdmissionWebhook
 		resourcequota.PluginName,            //ResourceQuota
+		customresourcequota.PluginName,      //CustomResourceQuota
 	)
 
 	return sets.NewString(AllOrderedPlugins...).Difference(defaultOnPlugins)
